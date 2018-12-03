@@ -12,14 +12,22 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
+            <% if (dashboad) { %>
             <li class="nav-item active  ">
-                <a class="nav-link" href="#0">
+                <% } else { %>
+            <li class="nav-item ">
+                <% } %>
+                <a class="nav-link" href="/">
                     <i class="material-icons">dashboard</i>
                     <p>Dashboard</p>
                 </a>
             </li>
+            <% if (config) { %>
+            <li class="nav-item active  ">
+                <% } else { %>
             <li class="nav-item  ">
-                <a class="nav-link" href="#0">
+                <% } %>
+                <a class="nav-link" href="/config">
                     <i class="material-icons">content_paste</i>
                     <p>Action</p>
                 </a>
