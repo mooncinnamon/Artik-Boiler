@@ -4,8 +4,7 @@ module.exports = function(app, fs)
         res.render('index', {
             title: "Artik Boiler",
             mainTitle: "House Boiler",
-            dashboad: true,
-            config : false
+            item: [['Dashboard', true, 'ti-home', '/'], ['Configuration', false, 'ti-share' , '/config']]
         })
     });
 
@@ -13,8 +12,7 @@ module.exports = function(app, fs)
         res.render('config',{
             title: "Artik Boiler",
             mainTitle: "House Boiler",
-            dashboad: false,
-            config : true
+            item: [['Dashboard', false, 'ti-home', '/'], ['Configuration', true, 'ti-share' , '/config']]
         })
 
     })

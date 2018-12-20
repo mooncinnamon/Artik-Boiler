@@ -1,23 +1,78 @@
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><%= title %></title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- Material Kit CSS -->
-    <link href="assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+    <style>
+        #loader {
+            transition: all 0.3s ease-in-out;
+            opacity: 1;
+            visibility: visible;
+            position: fixed;
+            height: 100vh;
+            width: 100%;
+            background: #fff;
+            z-index: 90000;
+        }
+
+        #loader.fadeOut {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: calc(50% - 20px);
+            left: calc(50% - 20px);
+            background-color: #333;
+            border-radius: 100%;
+            -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+            animation: sk-scaleout 1.0s infinite ease-in-out;
+        }
+
+        @-webkit-keyframes sk-scaleout {
+            0% {
+                -webkit-transform: scale(0)
+            }
+            100% {
+                -webkit-transform: scale(1.0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sk-scaleout {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            100% {
+                -webkit-transform: scale(1.0);
+                transform: scale(1.0);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
-<body>
-<div class="wrapper ">
-    <% include ./sidebar.ejs %>
-    <div class="main-panel">
-        <% include main-panel.ejs %>
-    </div>
-    <% include ./footer.ejs %>
+<body class="app">
+<div id='loader'>
+    <div class="spinner"></div>
+</div>
+
+<script>
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        setTimeout(() => {
+            loader.classList.add('fadeOut');
+        }, 300);
+    });
+</script>
+<div>
+<% include ./sidebar.ejs %>
+</div>
+
 </div>
 <script src="../assets/js/core/jquery.min.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
@@ -59,8 +114,8 @@
 <script src="../assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script>
-    $(document).ready(function() {
-        $().ready(function() {
+    $(document).ready(function () {
+        $().ready(function () {
             $sidebar = $('.sidebar');
 
             $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -80,7 +135,7 @@
 
             }
 
-            $('.fixed-plugin a').click(function(event) {
+            $('.fixed-plugin a').click(function (event) {
                 // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
                 if ($(this).hasClass('switch-trigger')) {
                     if (event.stopPropagation) {
@@ -91,7 +146,7 @@
                 }
             });
 
-            $('.fixed-plugin .active-color span').click(function() {
+            $('.fixed-plugin .active-color span').click(function () {
                 $full_page_background = $('.full-page-background');
 
                 $(this).siblings().removeClass('active');
@@ -112,7 +167,7 @@
                 }
             });
 
-            $('.fixed-plugin .background-color .badge').click(function() {
+            $('.fixed-plugin .background-color .badge').click(function () {
                 $(this).siblings().removeClass('active');
                 $(this).addClass('active');
 
@@ -123,7 +178,7 @@
                 }
             });
 
-            $('.fixed-plugin .img-holder').click(function() {
+            $('.fixed-plugin .img-holder').click(function () {
                 $full_page_background = $('.full-page-background');
 
                 $(this).parent('li').siblings().removeClass('active');
@@ -133,7 +188,7 @@
                 var new_image = $(this).find("img").attr('src');
 
                 if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                    $sidebar_img_container.fadeOut('fast', function() {
+                    $sidebar_img_container.fadeOut('fast', function () {
                         $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
                         $sidebar_img_container.fadeIn('fast');
                     });
@@ -142,7 +197,7 @@
                 if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
                     var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-                    $full_page_background.fadeOut('fast', function() {
+                    $full_page_background.fadeOut('fast', function () {
                         $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
                         $full_page_background.fadeIn('fast');
                     });
@@ -161,7 +216,7 @@
                 }
             });
 
-            $('.switch-sidebar-image input').change(function() {
+            $('.switch-sidebar-image input').change(function () {
                 $full_page_background = $('.full-page-background');
 
                 $input = $(this);
@@ -193,7 +248,7 @@
                 }
             });
 
-            $('.switch-sidebar-mini input').change(function() {
+            $('.switch-sidebar-mini input').change(function () {
                 $body = $('body');
 
                 $input = $(this);
@@ -208,7 +263,7 @@
 
                     $('.sidebar .sidebar-wrapper, .main-panel.ejs').perfectScrollbar('destroy');
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('body').addClass('sidebar-mini');
 
                         md.misc.sidebar_mini_active = true;
@@ -216,12 +271,12 @@
                 }
 
                 // we simulate the window Resize so the charts will get updated in realtime.
-                var simulateWindowResize = setInterval(function() {
+                var simulateWindowResize = setInterval(function () {
                     window.dispatchEvent(new Event('resize'));
                 }, 180);
 
                 // we stop the simulation of Window Resize after the animations are completed
-                setTimeout(function() {
+                setTimeout(function () {
                     clearInterval(simulateWindowResize);
                 }, 1000);
 
@@ -230,7 +285,7 @@
     });
 </script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Javascript method's body can be found in assets/js/demos.js
         md.initDashboardPageCharts();
 

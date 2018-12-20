@@ -1,38 +1,60 @@
-<div class="sidebar" data-color="purple" data-background-color="white">
-    <!--
-    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+<div class="sidebar">
+    <div class="sidebar-inner">
+        <!-- ### $Sidebar Header ### -->
+        <div class="sidebar-logo">
+            <div class="peers ai-c fxw-nw">
+                <div class="peer peer-greed">
+                    <a class="sidebar-link td-n" href="index.html">
+                        <div class="peers ai-c fxw-nw">
+                            <div class="peer">
+                                <div class="logo">
+                                    <img src="assets/static/images/logo.png" alt="">
+                                </div>
+                            </div>
+                            <div class="peer peer-greed">
+                                <h5 class="lh-1 mB-0 logo-text"><%= mainTitle %></h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="peer">
+                    <div class="mobile-toggle sidebar-toggle">
+                        <a href="" class="td-n">
+                            <i class="ti-arrow-circle-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    Tip 2: you can also add an image using data-image tag
--->
-    <div class="logo">
-
-        <a href="/" class="simple-text logo-normal">
-            <%= mainTitle %>
-        </a>
-    </div>
-    <div class="sidebar-wrapper">
-        <ul class="nav">
-            <% if (dashboad) { %>
-            <li class="nav-item active  ">
-                <% } else { %>
-            <li class="nav-item ">
+        <!-- ### $Sidebar Menu ### -->
+        <ul class="sidebar-menu scrollable pos-r">
+            <% if(item[0][1]){ %>
+            <li class="nav-item mT-30 active">
+                <% }else { %>
+            <li class="nav-item mT-30 ">
                 <% } %>
-                <a class="nav-link" href="/">
-                    <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
+                <a class="sidebar-link" href="<%= item[i][3]%>">
+                <span class="icon-holder">
+                  <i class="c-blue-500 <%= item[0][2] %>"></i>
+                </span>
+                    <span class="title"><%= item[0][0] %></span>
                 </a>
             </li>
-            <% if (config) { %>
-            <li class="nav-item active  ">
-                <% } else { %>
-            <li class="nav-item  ">
-                <% } %>
-                <a class="nav-link" href="/config">
-                    <i class="material-icons">content_paste</i>
-                    <p>Action</p>
+            <% for (var i = 1; i < item.length ; i++) { %>
+                <% if(item[i][1]){ %>
+                <li class="nav-item active">
+                    <% }else { %>
+                <li class="nav-item">
+                    <% } %>
+                <a class='sidebar-link' href="<%= item[i][3]%>">
+                <span class="icon-holder">
+                  <i class="c-brown-500 <%= item[i][2]%>"></i>
+                </span>
+                    <span class="title"><%= item[i][0]%></span>
                 </a>
             </li>
-            <!-- your sidebar here -->
+            <% } %>
         </ul>
     </div>
 </div>
